@@ -76,7 +76,7 @@ fig = mab.plot(out)
 </p>
 
 
-##  df looks like this:
+####  df looks like this:
 ```
       Ad 1  Ad 2  Ad 3  Ad 4  Ad 5  Ad 6  Ad 7  Ad 8  Ad 9  Ad 10
 0        1     0     0     0     1     0     0     0     1      0
