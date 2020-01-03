@@ -48,7 +48,7 @@ import thompson as mab
 df  = mab.example_data()
 ```
 
-## Compute multi-armed bandit using thompson and make plot:
+## Compute multi-armed bandit using thompson
 ```python
 out = mab.thompson(df)
 fig = mab.plot(out)
@@ -57,7 +57,7 @@ fig = mab.plot(out)
   <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_thompson.png" width="600" />
 </p>
 
-## Compute multi-armed bandit using UCB-Upper confidence Bound and plot:
+## Compute multi-armed bandit using UCB-Upper confidence Bound
 ```python
 out = mab.UCB(df)
 fig = mab.plot(out)
@@ -66,7 +66,7 @@ fig = mab.plot(out)
   <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_ucb.png" width="600" />
 </p>
 
-## Compute multi-armed bandit using randomized data and plot:
+## Compute multi-armed bandit using randomized data
 ```python
 out = mab.UCB_random(df)
 fig = mab.plot(out)
