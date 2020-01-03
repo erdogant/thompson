@@ -54,7 +54,7 @@ out = mab.thompson(df)
 fig = mab.plot(out)
 ```
 <p align="center">
-  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_thompson.png" width="600" />
+  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_thompson.png" width="900" />
 </p>
 
 ## Compute multi-armed bandit using UCB-Upper confidence Bound
@@ -63,7 +63,7 @@ out = mab.UCB(df)
 fig = mab.plot(out)
 ```
 <p align="center">
-  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_ucb.png" width="600" />
+  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_ucb.png" width="900" />
 </p>
 
 ## Compute multi-armed bandit using randomized data
@@ -72,7 +72,7 @@ out = mab.UCB_random(df)
 fig = mab.plot(out)
 ```
 <p align="center">
-  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_ucb_random.png" width="600" />
+  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_ucb_random.png" width="900" />
 </p>
 
 
