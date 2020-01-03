@@ -87,7 +87,7 @@ def example_data():
         return None
     
 #%% Plot
-def plot(out, width=15, height=8):
+def plot(out, width=15, height=10):
     '''
     Parameters
     ----------
@@ -101,11 +101,11 @@ def plot(out, width=15, height=8):
 
     '''
     if out['methodtype']=='thompson':
-        makefig_thompson(out['columns'], out['cols_rewards_1'], width=width, height=height)
+        makefig_thompson(out, width=width, height=height)
     elif out['methodtype']=='UCB':
-        makefig_UCB(out['columns'], out['num_selections'], out['sum_rewards'], width=width, height=width)
+        makefig_UCB(out, width=width, height=width)
     elif out['methodtype']=='UCB_random':
-        makefig_UCB_random(out['columns'], out['cols_selected'], width=width, height=height)
+        makefig_UCB_random(out, width=width, height=height)
 
 #%% Thompson sampling method
 def thompson(df, verbose=3):
@@ -275,43 +275,85 @@ def UCB(df, verbose=3):
 
     return(out)
 
-#%% Figure Thompson
-def makefig_thompson(columns, numbers_of_rewards_1, width=15, height=8):
+#%% Make figure
+def makefig_thompson(out, width=15, height=10):
+    columns = out['columns']
+    cols_selected = out['cols_selected']
+    numbers_of_rewards_1 = out['cols_rewards_1']
     logreward = list(map(lambda x: math.log(x+1), numbers_of_rewards_1))
+    # lognum = list(map(lambda x: math.log(x), num_selections))
+    
+    # Visualising the results - Histogram
+    getcounts=np.unique(cols_selected, return_counts=True)
+    idx=np.arange(0,len(getcounts[1]))
 
-    ind = np.arange(len(columns))
+    # Make figure
+    [fig, (ax1,ax2)]=plt.subplots(1, 2, figsize=(width*2,height))
     barwidth = 0.7
-    fig, ax = plt.subplots(figsize=(width,height))
-    ax.bar(ind, logreward, barwidth)    
-    ax.set_xlabel('Features')
-    ax.set_ylabel('Log(reward)')
-    ax.set_title('Thompson')
-    ax.set_xticks(ind)   
-    ax.set_xticklabels(columns)
-    ax.grid(True)
+    ind = np.arange(len(columns))
+    
+    ax1.bar(ind, logreward, barwidth)    
+    ax1.set_xlabel('Features')
+    ax1.set_ylabel('Log(reward)')
+    ax1.set_title('Thompson')
+    ax1.set_xticks(ind)   
+    ax1.set_xticklabels(columns)
+    ax1.grid(True)
+
+    ax2.plot(cols_selected,'.')
+    ax2.set_title('The selected sample over each round.')
+    ax2.set_xlabel('Rounds')
+    ax2.set_ylabel('Selected sample')
+    ax2.grid(True)
+    ax2.axes.set_yticks(idx)
+    ax2.axes.set_yticklabels(columns[getcounts[0]])
+    
     plt.show()
 
 #%% Figure Thompson
-def makefig_UCB(columns, num_selections, sum_rewards, width=15, height=8):
+def makefig_UCB(out, width=15, height=10):
+    columns=out['columns']
+    num_selections=out['num_selections']
+    sum_rewards=out['sum_rewards']
+    cols_selected = out['cols_selected']
+
     lognum = list(map(lambda x: math.log(x), num_selections))
     logreward = list(map(lambda x: math.log(x), sum_rewards))
+
+    # Visualising the results - Histogram
+    getcounts=np.unique(cols_selected, return_counts=True)
+    idx=np.arange(0,len(getcounts[1]))
+
     ind = np.arange(len(columns))
     barwidth = 0.35
 
-    fig, ax = plt.subplots(figsize=(width*2,height))
-    rects1 = ax.bar(ind - barwidth/2, lognum, barwidth)
-    rects2 = ax.bar(ind + barwidth/2, logreward , barwidth)    
-    ax.set_xlabel('Features')
-    ax.set_ylabel('Log(reward)')
-    ax.set_title('UCB')
-    # ax.set_yticks([])
-    ax.set_xticks(ind)
-    ax.set_xticklabels(columns[ind])
-    ax.legend((rects1[0], rects2[0]), ('Number of times sampled', 'Reward'))
-    ax.grid(True)
+    # fig, ax = plt.subplots(figsize=(width*2,height))
+    [fig, (ax1,ax2)]=plt.subplots(1, 2, figsize=(width*2,height))
+    rects1 = ax1.bar(ind - barwidth/2, lognum, barwidth)
+    rects2 = ax1.bar(ind + barwidth/2, logreward , barwidth)    
+    ax1.set_xlabel('Features')
+    ax1.set_ylabel('Log(reward)')
+    ax1.set_title('UCB')
+    ax1.set_xticks(ind)
+    ax1.set_xticklabels(columns[ind])
+    ax1.legend((rects1[0], rects2[0]), ('Number of times sampled', 'Reward'))
+    ax1.grid(True)
+
+    ax2.plot(cols_selected,'.')
+    ax2.set_title('The selected sample over each round.')
+    ax2.set_xlabel('Rounds')
+    ax2.set_ylabel('Selected sample')
+    ax2.grid(True)
+    ax2.axes.set_yticks(idx)
+    ax2.axes.set_yticklabels(columns[getcounts[0]])
     
+    plt.show()
+
 #%% Make figure
-def makefig_UCB_random(columns, cols_selected, width=30, height=10):
+def makefig_UCB_random(out, width=15, height=10):
+    columns=out['columns']
+    cols_selected=out['cols_selected']
+    
     # Visualising the results - Histogram
 #    idx=np.arange(0,df.shape[1])
     colwidth = 0.35       # the width of the bars: can also be len(x) sequence
