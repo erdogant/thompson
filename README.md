@@ -2,7 +2,7 @@
 
 [![PyPI Version](https://img.shields.io/pypi/v/thompson)](https://pypi.org/project/thompson/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/thompson/blob/master/LICENSE)
-https://img.shields.io/pypi/pyversions/thompson
+[![Python](https://img.shields.io/pypi/pyversions/thompson)](https://img.shields.io/pypi/pyversions/thompson)
 
 * Thompson is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
 * In probability theory, the multi-armed bandit problem is a problem in which a fixed limited set of resources must be allocated between competing (alternative) choices in a way that maximizes their expected gain, when each choice's properties are only partially known at the time of allocation, and may become better understood as time passes or by allocating resources to the choice. This is a classic reinforcement learning problem that exemplifies the exploration-exploitation tradeoff dilemma <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">wikipedia</a>. 
