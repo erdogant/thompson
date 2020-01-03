@@ -13,7 +13,7 @@ setuptools.setup(
 #     cmdclass=versioneer.get_cmdclass(),  # VERSION CONTROL
      author="Erdogan Taskesen",
      author_email="erdogant@gmail.com",
-     description="Create survival curves using thompson, the log-rank test and making plots.",
+     description="The multi-armed bandit by Thompson Sampling, UCB-Upper confidence Bound, and randomized sampling.",
      long_description=long_description,
      long_description_content_type="text/markdown",
      url="https://github.com/erdogant/thompson",

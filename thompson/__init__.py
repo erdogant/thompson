@@ -1,10 +1,9 @@
-from kaplanmeier.kaplanmeier import (
-	thompson,
-    randomUCB,
+from thompson.thompson import (
+	example_data,
+    thompson,
 	UCB,
-	makefig_UCB,
-	makefig_thompson,
-	makefig,
+	UCB_random,
+	plot,
 )
 
 __author__ = 'Erdogan Tasksen'
@@ -19,7 +18,7 @@ del get_versions
 
 # module level doc-string
 __doc__ = """
-thompson - thompson is an Python package for reinforcement learning by the Thompson Sampling/ Random and the real UCB-Upper confidence Bound
+thompson - The multi-armed bandit by Thompson Sampling, UCB-Upper confidence Bound, and randomized sampling.
 =====================================================================
 
 **thompson** 
