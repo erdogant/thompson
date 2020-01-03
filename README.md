@@ -115,4 +115,4 @@ Please cite thompson in your publications if this is useful for your research. H
 * All kinds of contributions are welcome!
 
 ## © Copyright
-See [LICENSE] for details.
+See [LICENSE](LICENSE) for details.
