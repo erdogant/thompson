@@ -1,7 +1,7 @@
 echo "Cleaning previous builds first.."
 rm -rf dist
 rm -rf build
-rm -rf hnet.egg-info
+rm -rf thompson.egg-info
 
 echo "Making new build.."
 echo ""
