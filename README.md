@@ -5,7 +5,8 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/thompson/blob/master/LICENSE)
 [![Downloads](https://pepy.tech/badge/thompson/month)](https://pepy.tech/project/thompson/month)
 [![Downloads](https://pepy.tech/badge/thompson)](https://pepy.tech/project/thompson)
-[![Donate](https://img.shields.io/badge/donate-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
+[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)
+<!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 * Thompson is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
 * In probability theory, the multi-armed bandit problem is a problem in which a fixed limited set of resources must be allocated between competing (alternative) choices in a way that maximizes their expected gain, when each choice's properties are only partially known at the time of allocation, and may become better understood as time passes or by allocating resources to the choice. This is a classic reinforcement learning problem that exemplifies the exploration-exploitation tradeoff dilemma <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">wikipedia</a>. 
@@ -117,9 +118,8 @@ Please cite thompson in your publications if this is useful for your research. H
 
 ### Contribute
 * All kinds of contributions are welcome!
+* If you wish to buy me a <a href="https://www.buymeacoffee.com/erdogant">Coffee</a> for this work, it is very appreciated :)
 
 ### Licence
 See [LICENSE](LICENSE) for details.
 
-### Donation
-* This work is created and maintained in my free time. If you wish to buy me a <a href="https://erdogant.github.io/donate/?currency=USD&amount=5">Coffee</a> for this work, it is very appreciated.
