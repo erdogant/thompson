@@ -364,7 +364,7 @@ def import_example(data='ads', url=None, sep=','):
 
     """
     if url is None:
-        if data=='digits':
+        if data=='ads':
             url='https://erdogant.github.io/datasets/ads_data.zip'
         else:
             print('[THOMPSON] Oops! Example data not found! Try to get it at: www.github.com/erdogant/thompson')

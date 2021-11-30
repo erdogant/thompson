@@ -1,9 +1,10 @@
 from thompson.thompson import (
-	example_data,
+	import_example,
     thompson,
 	UCB,
 	UCB_random,
 	plot,
+    wget,
 )
 
 __author__ = 'Erdogan Tasksen'
