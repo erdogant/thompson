@@ -99,17 +99,6 @@ fig = mab.plot(out)
 [10000 rows x 10 columns]
 ```
 
-### Citation
-Please cite thompson in your publications if this is useful for your research. Here is an example BibTeX entry:
-```BibTeX
-@misc{erdogant2019thompson,
-  title={thompson},
-  author={Erdogan Taskesen},
-  year={2019},
-  howpublished={\url{https://github.com/erdogant/thompson}},
-}
-```
-
 ### References
 * https://en.wikipedia.org/wiki/Multi-armed_bandit
    
