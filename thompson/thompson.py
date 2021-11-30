@@ -8,44 +8,14 @@
 	out = mab.UCB_random(df, <optional>)
 	fig = mab.plot(out, <optional>)
 
-
-    Parameters
-    ----------
     df : [pd.DataFrame], Contains samples[rows] x features[columns]
-    
-    verbose:        [INT] Print messages to screen.
-                    0: NONE
-                    1: ERROR
-                    2: WARNING
-                    3: INFO (default)
-                    4: DEBUG
-                    5: TRACE
 
     Returns
     -------
     Dictionary containing keys with results and others to make the plot.
 
 
-    Example
-    ----------
-    import thompson as mab
-    
-    # Load data
-    df  = mab.example_data()
 
-    # Compute multi-armed bandit using method and make plot
-    
-    # Thompson
-    out_tps = mab.thompson(df)
-    fig = mab.plot(out_tps)
-    
-    # UCB-Upper confidence Bound,
-    out_ucb = mab.UCB(df)
-    fig = mab.plot(out_ucb)
-    
-    # Randomized
-    out_ran = mab.UCB_random(df)
-    fig = mab.plot(out_ran)
 
 
  SEE ALSO
@@ -68,24 +38,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-#%% Example data
-def example_data():
-    '''
-    Returns
-    -------
-    df : [DataFrame],  Example data of ads.
+from urllib.parse import urlparse
+import requests
 
-    '''
-    
-    curpath = os.path.dirname(os.path.abspath( __file__ ))
-    PATH_TO_DATA=os.path.join(curpath,'data','ads_data.zip')
-    if os.path.isfile(PATH_TO_DATA):
-        df=pd.read_csv(PATH_TO_DATA, sep=',')
-        return df
-    else:
-        print('[THOMPSON] Oops! Example data not found! Try to get it at: www.github.com/erdogant/thompson')
-        return None
-    
 #%% Plot
 def plot(out, width=15, height=10):
     '''
@@ -382,3 +337,66 @@ def makefig_UCB_random(out, width=15, height=10):
     ax2.axes.set_yticklabels(columns[getcounts[0]])
     
     plt.show()
+
+
+# %% Import example dataset from github.
+def import_example(data='ads', url=None, sep=','):
+    """Import example dataset from github source.
+
+    Description
+    -----------
+    Import one of the few datasets from github source or specify your own download url link.
+
+    Parameters
+    ----------
+    data : str
+        Name of datasets: 'ads'
+    url : str
+        url link to to dataset.
+    verbose : int, optional
+        Print progress to screen. The default is 3.
+        0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE
+
+    Returns
+    -------
+    pd.DataFrame()
+        Dataset containing mixed features.
+
+    """
+    if url is None:
+        if data=='digits':
+            url='https://erdogant.github.io/datasets/ads_data.zip'
+        else:
+            print('[THOMPSON] Oops! Example data not found! Try to get it at: www.github.com/erdogant/thompson')
+            return None
+    else:
+        data = wget.filename_from_url(url)
+
+    if url is None:
+        print('Nothing to download.')
+        return None
+
+    curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+    filename = os.path.basename(urlparse(url).path)
+    PATH_TO_DATA = os.path.join(curpath, filename)
+    if not os.path.isdir(curpath):
+        os.makedirs(curpath, exist_ok=True)
+
+    # Check file exists.
+    if not os.path.isfile(PATH_TO_DATA):
+        print('Downloading [%s] dataset from github source..' %(data))
+        wget(url, PATH_TO_DATA)
+
+    # Import local dataset
+    print('Import dataset [%s]' %(data))
+    # Return
+    df=pd.read_csv(PATH_TO_DATA, sep=',')
+    return df
+
+
+# %% Download files from github source
+def wget(url, writepath):
+    r = requests.get(url, stream=True)
+    with open(writepath, "wb") as fd:
+        for chunk in r.iter_content(chunk_size=1024):
+            fd.write(chunk)
