@@ -5,44 +5,23 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/thompson/blob/master/LICENSE)
 [![Downloads](https://pepy.tech/badge/thompson/month)](https://pepy.tech/project/thompson/month)
 [![Downloads](https://pepy.tech/badge/thompson)](https://pepy.tech/project/thompson)
-[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)
 [![DOI](https://zenodo.org/badge/231458137.svg)](https://zenodo.org/badge/latestdoi/231458137)
+<!---[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)-->
 <!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
-* Thompson is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
+* ```Thompson``` is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
 * In probability theory, the multi-armed bandit problem is a problem in which a fixed limited set of resources must be allocated between competing (alternative) choices in a way that maximizes their expected gain, when each choice's properties are only partially known at the time of allocation, and may become better understood as time passes or by allocating resources to the choice. This is a classic reinforcement learning problem that exemplifies the exploration-exploitation tradeoff dilemma <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">wikipedia</a>. 
 * In the problem, each machine provides a random reward from a probability distribution specific to that machine. The objective of the gambler is to maximize the sum of rewards earned through a sequence of lever pulls. The crucial tradeoff the gambler faces at each trial is between "exploitation" of the machine that has the highest expected payoff and "exploration" to get more information about the expected payoffs of the other machines. The trade-off between exploration and exploitation is also faced in machine learning. In practice, multi-armed bandits have been used to model problems such as managing research projects in a large organization like a science foundation or a pharmaceutical company <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">wikipedia</a>.
 
+# 
+**Star this repo if you like it! ⭐️**
+#
 
-## Contents
-- [Installation](#-installation)
-- [Requirements](#-Requirements)
-- [Quick Start](#-quick-start)
-- [Contribute](#-contribute)
-- [Citation](#-citation)
-- [Maintainers](#-maintainers)
-- [License](#-copyright)
-
-## Installation
-* Install thompson from PyPI (recommended). thompson is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
-* Distributed under the MIT license.
-
-## Requirements
-```python
-pip install matplotlib numpy pandas
-```
 
 ## Quick Start
 ```
 pip install thompson
 ```
-
-* Alternatively, install thompson from the GitHub source:
-```bash
-git clone https://github.com/erdogant/thompson.git
-cd thompson
-python setup.py install
-```  
 
 ## Import thompson package
 ```python
