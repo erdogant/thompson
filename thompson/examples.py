@@ -1,19 +1,20 @@
 import numpy as np
-import thompson as mab
+import thompson as th
 
 # Load data
-df  = mab.import_example()
+df = th.import_example()
 
 # Compute multi-armed bandit using method and make plot
+out_tps = th.thompson(df)
 
-# Thompson
-out_tps = mab.thompson(df)
-fig = mab.plot(out_tps)
+# Plot
+fig = th.plot(out_tps)
 
 # UCB-Upper confidence Bound,
-out_ucb = mab.UCB(df)
-fig = mab.plot(out_ucb)
+out_ucb = th.UCB(df)
+fig = th.plot(out_ucb)
 
 # Randomized
-out_ran = mab.UCB_random(df)
-fig = mab.plot(out_ran)
+out_ran = th.UCB_random(df)
+fig = th.plot(out_ran)
+
