@@ -18,7 +18,7 @@ keywords:
   - "thompson=algorithm"
 license: "MIT"
 message: "If you use this software, please cite it using these metadata."
-repository-code: "https://github.com/erdogant/thompson"
+repository-code: "https://erdogant.github.io/thompson"
 title: "The multi-armed bandit by Thompson Sampling, UCB-Upper confidence Bound, and randomized sampling."
 version: "1.0.0"
 ...
