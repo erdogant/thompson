@@ -32,7 +32,7 @@ import thompson as th
 
 ### [Documentation pages](https://erdogant.github.io/thompson/)
 
-On the [documentation pages](https://erdogant.github.io/thompson/) you can find detailed information about the working of the ``thompson`` with many examples. 
+On the [documentation pages](https://erdogant.github.io/thompson/) you can find detailed information about the working of the ``thompson`` with examples. 
 
 <hr> 
 
