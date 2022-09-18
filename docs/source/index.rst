@@ -4,9 +4,9 @@ thompson's documentation!
 ``thompson`` is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
 
 
-Star is important
-======================
-If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/thompson/>`_!
+You contribution is important
+==============================
+If you ❤️ this project, **star** this repo at the `github page <https://github.com/erdogant/thompson/>`_ and have a look at the `sponser page <https://github.com/erdogant/thompson/pages/html/Documentation.html>`_!
 
 
 Github
