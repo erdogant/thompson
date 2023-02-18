@@ -343,8 +343,6 @@ def makefig_UCB_random(out, width=15, height=10):
 def import_example(data='ads', url=None, sep=','):
     """Import example dataset from github source.
 
-    Description
-    -----------
     Import one of the few datasets from github source or specify your own download url link.
 
     Parameters
