@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -70,7 +71,18 @@
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">Github</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Coding%20quality.html">Coding quality</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.UCB"><code class="docutils literal notranslate"><span class="pre">UCB()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.UCB_random"><code class="docutils literal notranslate"><span class="pre">UCB_random()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.import_example"><code class="docutils literal notranslate"><span class="pre">import_example()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.makefig_UCB"><code class="docutils literal notranslate"><span class="pre">makefig_UCB()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.makefig_UCB_random"><code class="docutils literal notranslate"><span class="pre">makefig_UCB_random()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.makefig_thompson"><code class="docutils literal notranslate"><span class="pre">makefig_thompson()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.plot"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.thompson"><code class="docutils literal notranslate"><span class="pre">thompson()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thompson.thompson.wget"><code class="docutils literal notranslate"><span class="pre">wget()</span></code></a></li>
+</ul>
+</li>
 </ul>
 
     <a href= "genindex.html">Index</a>
@@ -99,13 +111,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <hr>
-<center>
-        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
-        <div data-ea-publisher="erdogantgithubio" data-ea-type="text"></div>
-        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="text" data-ea-style="fixedfooter"></div> -->
-</center>
-<hr><section id="module-thompson.thompson">
+  <section id="module-thompson.thompson">
 <span id="api-references"></span><h1>API References<a class="headerlink" href="#module-thompson.thompson" title="Permalink to this heading"></a></h1>
 <p>This function performs the multi-armed bandit (mab) problem by Thompson Sampling, UCB-Upper confidence Bound, and randomized sampling</p>
 <blockquote>
@@ -210,8 +216,8 @@ fig = mab.plot(out, &lt;optional&gt;)</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>out</strong> (<em>[</em><em>dict</em><em>]</em><em>, </em><em>Output from thompson</em><em>, </em><em>ucb</em><em> or </em><em>usb_random.</em>) – </p></li>
-<li><p><strong>width</strong> (<em>[</em><em>Int</em><em>]</em><em>,  </em><em>Width of the figure. default is 30.</em>) – </p></li>
-<li><p><strong>height</strong> (<em>[</em><em>Int</em><em>]</em><em>,  </em><em>Width of the figure. default is 10.</em>) – </p></li>
+<li><p><strong>width</strong> (<em>[</em><em>Int</em><em>]</em><em>,  </em><em>Width</em><em> of </em><em>the figure. default is 30.</em>) – </p></li>
+<li><p><strong>height</strong> (<em>[</em><em>Int</em><em>]</em><em>,  </em><em>Width</em><em> of </em><em>the figure. default is 10.</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
