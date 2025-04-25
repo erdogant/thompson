@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thompson"
+dynamic = ["version"]
+authors = [{ name = "Erdogan Taskesen", email = "erdogant@gmail.com" },]
+description = "The multi-armed bandit by Thompson Sampling, UCB-Upper confidence Bound, and randomized sampling."
+readme = "README.md"
+requires-python = ">=3"
+license = { file = "LICENSE" }
+keywords = ["Python", "Thompson", "multi-armed bandit", "UCB-Upper confidence Bound", "randomized sampling"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ['matplotlib','numpy','pandas']
+
+[project.urls]
+Homepage = "https://erdogant.github.io/thompson"
+Download = "https://github.com/erdogant/thompson/archive/{version}.tar.gz"
+
+[tool.setuptools]
+packages = ["thompson"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "thompson.__version__" }
