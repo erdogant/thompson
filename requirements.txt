@@ -1,4 +1,4 @@
-#conda create -n env_thompson python=3.6
-#conda activate env_thompson
-pip install matplotlib numpy pandas seaborn
-#conda install spyder
+matplotlib
+numpy
+pandas
+
