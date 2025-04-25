@@ -1,21 +1,7 @@
-""" This function performs the multi-armed bandit (mab) problem by Thompson Sampling, UCB-Upper confidence Bound, and randomized sampling
+"""This module implements multi-armed bandit algorithms including Thompson Sampling, 
+UCB (Upper Confidence Bound), and randomized sampling.
 
-   import thompson as mab
-
-    df  = mab.example_data()
-	out = mab.thompson(df, <optional>)
-	out = mab.UCB(df, <optional>)
-	out = mab.UCB_random(df, <optional>)
-	fig = mab.plot(out, <optional>)
-
-    df : [pd.DataFrame], Contains samples[rows] x features[columns]
-
-    Returns
-    -------
-    Dictionary containing keys with results and others to make the plot.
 """
-#print(__doc__)
-
 #--------------------------------------------------------------------------
 # Name        : thompson.py
 # Author      : E.Taskesen
@@ -38,18 +24,47 @@ logger = logging.getLogger(__name__)
 
 #%% Plot
 def plot(out, width=15, height=10, verbose='info'):
-    '''
+    """Plot the results of the multi-armed bandit algorithm.
+
+    Creates visualizations showing the performance of the selected algorithm.
+    The type of plot depends on the method used (Thompson, UCB, or randomized).
+
     Parameters
     ----------
-    out : [dict], Output from thompson, ucb or usb_random.
-    width : [Int],  Width of the figure. default is 30.
-    height : [Int],  Width of the figure. default is 10.
+    out : dict
+        Output from thompson, UCB, or UCB_random containing the results to plot.
+    width : int, optional
+        Width of the figure in inches. Default is 15.
+    height : int, optional
+        Height of the figure in inches. Default is 10.
+    verbose : str or int, optional
+        Set the verbose messages using string or integer values:
+        * [0, 60, None, 'silent', 'off', 'no']: No message
+        * [10, 'debug']: Messages from debug level and higher
+        * [20, 'info']: Messages from info level and higher
+        * [30, 'warning']: Messages from warning level and higher
+        * [50, 'critical', 'error']: Messages from critical level and higher
+        Default is 'info'
 
     Returns
     -------
-    None.
+    None
+        The function displays the plot directly and returns None.
 
-    '''
+    Examples
+    --------
+    >>> import thompson as th
+    >>> df = th.import_example()
+    >>> # Plot Thompson sampling results
+    >>> out_tps = th.thompson(df)
+    >>> th.plot(out_tps)
+    >>> # Plot UCB results
+    >>> out_ucb = th.UCB(df)
+    >>> th.plot(out_ucb)
+    >>> # Plot randomized results
+    >>> out_ran = th.UCB_random(df)
+    >>> th.plot(out_ran)
+    """
     set_logger(verbose)
     logger.info('Making plot')
     if out['methodtype']=='thompson':
@@ -61,24 +76,45 @@ def plot(out, width=15, height=10, verbose='info'):
 
 #%% Thompson sampling method
 def thompson(df, verbose='info'):
-    """
+    """Perform Thompson sampling on the multi-armed bandit problem.
+
+    Thompson sampling is a Bayesian approach to the multi-armed bandit problem.
+    It maintains a probability distribution over the expected rewards of each arm
+    and samples from these distributions to select the next arm to pull.
 
     Parameters
     ----------
-    df : [pd.DataFrame], Contains samples[rows] x features[columns]
-    
-    verbose : [str, int], default is 'info' or 20
-        Set the verbose messages using string or integer values.
-        * [0, 60, None, 'silent', 'off', 'no']: No message.
-        * [10, 'debug']: Messages from debug level and higher.
-        * [20, 'info']: Messages from info level and higher.
-        * [30, 'warning']: Messages from warning level and higher.
-        * [50, 'critical', 'error']: Messages from critical level and higher.
+    df : pd.DataFrame
+        Contains samples[rows] x features[columns]. Each row represents a trial,
+        and each column represents an arm of the bandit. Values should be 0 or 1,
+        where 1 indicates a successful trial.
+    verbose : str or int, optional
+        Set the verbose messages using string or integer values:
+        * [0, 60, None, 'silent', 'off', 'no']: No message
+        * [10, 'debug']: Messages from debug level and higher
+        * [20, 'info']: Messages from info level and higher
+        * [30, 'warning']: Messages from warning level and higher
+        * [50, 'critical', 'error']: Messages from critical level and higher
+        Default is 'info'
 
     Returns
     -------
-    Dictionary containing keys with results and others to make the plot.
+    dict
+        Dictionary containing:
+        - columns: Names of the columns (arms)
+        - total_reward: Total rewards obtained
+        - cols_selected: Vector describing which arm was selected for each trial
+        - cols_rewards_1: Number of successful trials per arm
+        - cols_rewards_0: Number of unsuccessful trials per arm
+        - methodtype: 'thompson'
 
+    Examples
+    --------
+    >>> import thompson as th
+    >>> df = th.import_example()
+    >>> out = th.thompson(df)
+    >>> print(f"Total reward: {out['total_reward']}")
+    >>> print(f"Best performing arm: {out['columns'][np.argmax(out['cols_rewards_1'])]}")
     """
     N=df.shape[0]
     d=df.shape[1]
@@ -119,25 +155,44 @@ def thompson(df, verbose='info'):
 
 #%% Random sampling method
 def UCB_random(df, verbose='info'):
-    '''
+    """Perform randomized sampling on the multi-armed bandit problem.
+
+    This method randomly selects arms without considering their past performance.
+    It serves as a baseline for comparing the performance of more sophisticated
+    algorithms like Thompson sampling and UCB.
 
     Parameters
     ----------
-    df : [pd.DataFrame], Contains samples[rows] x features[columns]
-    
-    verbose : [str, int], default is 'info' or 20
-        Set the verbose messages using string or integer values.
-        * [0, 60, None, 'silent', 'off', 'no']: No message.
-        * [10, 'debug']: Messages from debug level and higher.
-        * [20, 'info']: Messages from info level and higher.
-        * [30, 'warning']: Messages from warning level and higher.
-        * [50, 'critical', 'error']: Messages from critical level and higher.
+    df : pd.DataFrame
+        Contains samples[rows] x features[columns]. Each row represents a trial,
+        and each column represents an arm of the bandit. Values should be 0 or 1,
+        where 1 indicates a successful trial.
+    verbose : str or int, optional
+        Set the verbose messages using string or integer values:
+        * [0, 60, None, 'silent', 'off', 'no']: No message
+        * [10, 'debug']: Messages from debug level and higher
+        * [20, 'info']: Messages from info level and higher
+        * [30, 'warning']: Messages from warning level and higher
+        * [50, 'critical', 'error']: Messages from critical level and higher
+        Default is 'info'
 
     Returns
     -------
-    Dictionary containing keys with results and others to make the plot.
+    dict
+        Dictionary containing:
+        - columns: Names of the columns (arms)
+        - total_reward: Total rewards obtained
+        - cols_selected: Vector describing which arm was selected for each trial
+        - methodtype: 'UCB_random'
 
-    '''
+    Examples
+    --------
+    >>> import thompson as th
+    >>> df = th.import_example()
+    >>> out = th.UCB_random(df)
+    >>> print(f"Total reward: {out['total_reward']}")
+    >>> print(f"Number of trials: {len(out['cols_selected'])}")
+    """
     set_logger(verbose)
     logger.info('Create USB Random')
     cols_selected = []
@@ -166,25 +221,46 @@ def UCB_random(df, verbose='info'):
 
 #%% Upper Confidence Bound Algorithm
 def UCB(df, verbose='info'):
-    '''
+    """Perform Upper Confidence Bound (UCB) algorithm on the multi-armed bandit problem.
+
+    UCB is a deterministic algorithm that selects arms based on their estimated rewards
+    and the uncertainty in those estimates. It balances exploration and exploitation
+    by selecting arms with high upper confidence bounds.
 
     Parameters
     ----------
-    df : [pd.DataFrame], Contains samples[rows] x features[columns]
-    
-    verbose : [str, int], default is 'info' or 20
-        Set the verbose messages using string or integer values.
-        * [0, 60, None, 'silent', 'off', 'no']: No message.
-        * [10, 'debug']: Messages from debug level and higher.
-        * [20, 'info']: Messages from info level and higher.
-        * [30, 'warning']: Messages from warning level and higher.
-        * [50, 'critical', 'error']: Messages from critical level and higher.
+    df : pd.DataFrame
+        Contains samples[rows] x features[columns]. Each row represents a trial,
+        and each column represents an arm of the bandit. Values should be 0 or 1,
+        where 1 indicates a successful trial.
+    verbose : str or int, optional
+        Set the verbose messages using string or integer values:
+        * [0, 60, None, 'silent', 'off', 'no']: No message
+        * [10, 'debug']: Messages from debug level and higher
+        * [20, 'info']: Messages from info level and higher
+        * [30, 'warning']: Messages from warning level and higher
+        * [50, 'critical', 'error']: Messages from critical level and higher
+        Default is 'info'
 
     Returns
     -------
-    Dictionary containing keys with results and others to make the plot.
+    dict
+        Dictionary containing:
+        - columns: Names of the columns (arms)
+        - total_reward: Total rewards obtained
+        - cols_selected: Vector describing which arm was selected for each trial
+        - sum_rewards: Sum of rewards obtained per arm
+        - num_selections: Number of times each arm was selected
+        - methodtype: 'UCB'
 
-    '''
+    Examples
+    --------
+    >>> import thompson as th
+    >>> df = th.import_example()
+    >>> out = th.UCB(df)
+    >>> print(f"Total reward: {out['total_reward']}")
+    >>> print(f"Most selected arm: {out['columns'][np.argmax(out['num_selections'])]}")
+    """
     set_logger(verbose)
     logger.info('Compute UCB-Upper confidence Bound.')
     N=df.shape[0]
