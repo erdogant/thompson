@@ -13,13 +13,6 @@
     Returns
     -------
     Dictionary containing keys with results and others to make the plot.
-
-
-
-
-
- SEE ALSO
-   
 """
 #print(__doc__)
 
@@ -37,12 +30,14 @@ import math
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
 from urllib.parse import urlparse
 import requests
+import logging
+
+logger = logging.getLogger(__name__)
 
 #%% Plot
-def plot(out, width=15, height=10):
+def plot(out, width=15, height=10, verbose='info'):
     '''
     Parameters
     ----------
@@ -55,6 +50,8 @@ def plot(out, width=15, height=10):
     None.
 
     '''
+    set_logger(verbose)
+    logger.info('Making plot')
     if out['methodtype']=='thompson':
         makefig_thompson(out, width=width, height=height)
     elif out['methodtype']=='UCB':
@@ -63,34 +60,33 @@ def plot(out, width=15, height=10):
         makefig_UCB_random(out, width=width, height=height)
 
 #%% Thompson sampling method
-def thompson(df, verbose=3):
-    '''
+def thompson(df, verbose='info'):
+    """
 
     Parameters
     ----------
     df : [pd.DataFrame], Contains samples[rows] x features[columns]
     
-    verbose:        [INT] Print messages to screen.
-                    0: NONE
-                    1: ERROR
-                    2: WARNING
-                    3: INFO (default)
-                    4: DEBUG
-                    5: TRACE
+    verbose : [str, int], default is 'info' or 20
+        Set the verbose messages using string or integer values.
+        * [0, 60, None, 'silent', 'off', 'no']: No message.
+        * [10, 'debug']: Messages from debug level and higher.
+        * [20, 'info']: Messages from info level and higher.
+        * [30, 'warning']: Messages from warning level and higher.
+        * [50, 'critical', 'error']: Messages from critical level and higher.
 
     Returns
     -------
     Dictionary containing keys with results and others to make the plot.
 
-    '''
-
+    """
     N=df.shape[0]
     d=df.shape[1]
     cols_selected = []
     numbers_of_rewards_1 = [0] * d
     numbers_of_rewards_0 = [0] * d
     total_reward = 0
-    
+    logger.info('Compute multi-armed bandit')
     # Run over the rows
     for n in range(0, N):
         col = 0
@@ -110,7 +106,6 @@ def thompson(df, verbose=3):
         else:
             numbers_of_rewards_0[col] = numbers_of_rewards_0[col] + 1
         total_reward = total_reward + reward
-    
 
     # Output results
     out=dict()
@@ -120,30 +115,31 @@ def thompson(df, verbose=3):
     out['cols_rewards_1']=numbers_of_rewards_1
     out['cols_rewards_0']=numbers_of_rewards_0
     out['methodtype']='thompson'
-    return(out)
+    return out
 
 #%% Random sampling method
-def UCB_random(df, verbose=3):
+def UCB_random(df, verbose='info'):
     '''
 
     Parameters
     ----------
     df : [pd.DataFrame], Contains samples[rows] x features[columns]
     
-    verbose:        [INT] Print messages to screen.
-                    0: NONE
-                    1: ERROR
-                    2: WARNING
-                    3: INFO (default)
-                    4: DEBUG
-                    5: TRACE
+    verbose : [str, int], default is 'info' or 20
+        Set the verbose messages using string or integer values.
+        * [0, 60, None, 'silent', 'off', 'no']: No message.
+        * [10, 'debug']: Messages from debug level and higher.
+        * [20, 'info']: Messages from info level and higher.
+        * [30, 'warning']: Messages from warning level and higher.
+        * [50, 'critical', 'error']: Messages from critical level and higher.
 
     Returns
     -------
     Dictionary containing keys with results and others to make the plot.
 
     '''
-    
+    set_logger(verbose)
+    logger.info('Create USB Random')
     cols_selected = []
     total_reward = 0
     N=df.shape[0]
@@ -169,27 +165,28 @@ def UCB_random(df, verbose=3):
     return(out)
 
 #%% Upper Confidence Bound Algorithm
-def UCB(df, verbose=3):
+def UCB(df, verbose='info'):
     '''
 
     Parameters
     ----------
     df : [pd.DataFrame], Contains samples[rows] x features[columns]
     
-    verbose:        [INT] Print messages to screen.
-                    0: NONE
-                    1: ERROR
-                    2: WARNING
-                    3: INFO (default)
-                    4: DEBUG
-                    5: TRACE
+    verbose : [str, int], default is 'info' or 20
+        Set the verbose messages using string or integer values.
+        * [0, 60, None, 'silent', 'off', 'no']: No message.
+        * [10, 'debug']: Messages from debug level and higher.
+        * [20, 'info']: Messages from info level and higher.
+        * [30, 'warning']: Messages from warning level and higher.
+        * [50, 'critical', 'error']: Messages from critical level and higher.
 
     Returns
     -------
     Dictionary containing keys with results and others to make the plot.
 
     '''
-    
+    set_logger(verbose)
+    logger.info('Compute UCB-Upper confidence Bound.')
     N=df.shape[0]
     d=df.shape[1]
     cols_selected = []
@@ -317,7 +314,7 @@ def makefig_UCB_random(out, width=15, height=10):
 
     [fig, (ax1,ax2)]=plt.subplots(1, 2, figsize=(width*2,height))
     # plt.title('UCB randomized results')
-#    print(getcounts)
+    logger.debug(getcounts)
     
     ax1.set_title('Histogram of Sample selections')
     ax1.bar(idx,getcounts[1],colwidth)
@@ -340,7 +337,7 @@ def makefig_UCB_random(out, width=15, height=10):
 
 
 # %% Import example dataset from github.
-def import_example(data='ads', url=None, sep=','):
+def import_example(data='ads', url=None, sep=',', verbose='info'):
     """Import example dataset from github source.
 
     Import one of the few datasets from github source or specify your own download url link.
@@ -351,9 +348,13 @@ def import_example(data='ads', url=None, sep=','):
         Name of datasets: 'ads'
     url : str
         url link to to dataset.
-    verbose : int, optional
-        Print progress to screen. The default is 3.
-        0: None, 1: ERROR, 2: WARN, 3: INFO (default), 4: DEBUG, 5: TRACE
+    verbose : [str, int], default is 'info' or 20
+        Set the verbose messages using string or integer values.
+        * [0, 60, None, 'silent', 'off', 'no']: No message.
+        * [10, 'debug']: Messages from debug level and higher.
+        * [20, 'info']: Messages from info level and higher.
+        * [30, 'warning']: Messages from warning level and higher.
+        * [50, 'critical', 'error']: Messages from critical level and higher.
 
     Returns
     -------
@@ -361,17 +362,18 @@ def import_example(data='ads', url=None, sep=','):
         Dataset containing mixed features.
 
     """
+    set_logger(verbose)
     if url is None:
         if data=='ads':
             url='https://erdogant.github.io/datasets/ads_data.zip'
         else:
-            print('[THOMPSON] Oops! Example data not found! Try to get it at: www.github.com/erdogant/thompson')
+            logger.critical('Oops! Example data not found! Try to get it at: www.github.com/erdogant/thompson')
             return None
     else:
         data = wget.filename_from_url(url)
 
     if url is None:
-        print('Nothing to download.')
+        logger.warning('Nothing to download.')
         return None
 
     curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
@@ -382,11 +384,11 @@ def import_example(data='ads', url=None, sep=','):
 
     # Check file exists.
     if not os.path.isfile(PATH_TO_DATA):
-        print('Downloading [%s] dataset from github source..' %(data))
+        logger.info('Downloading [%s] dataset from github source..' %(data))
         wget(url, PATH_TO_DATA)
 
     # Import local dataset
-    print('Import dataset [%s]' %(data))
+    logger.info('Import dataset [%s]' %(data))
     # Return
     df=pd.read_csv(PATH_TO_DATA, sep=',')
     return df
@@ -398,3 +400,87 @@ def wget(url, writepath):
     with open(writepath, "wb") as fd:
         for chunk in r.iter_content(chunk_size=1024):
             fd.write(chunk)
+
+# %%
+def convert_verbose_to_new(verbose):
+    """Convert old verbosity to the new."""
+    # In case the new verbosity is used, convert to the old one.
+    if verbose is None: verbose=0
+    if not isinstance(verbose, str) and verbose<10:
+        status_map = {
+            'None': 'silent',
+            0: 'silent',
+            6: 'silent',
+            1: 'critical',
+            2: 'warning',
+            3: 'info',
+            4: 'debug',
+            5: 'debug'}
+        if verbose>=2: print('[thompson] WARNING use the standardized verbose status. The status [1-6] will be deprecated in future versions.')
+        return status_map.get(verbose, 0)
+    else:
+        return verbose
+
+def get_logger():
+    return logger.getEffectiveLevel()
+
+
+def set_logger(verbose: [str, int] = 'info'):
+    """Set the logger for verbosity messages.
+
+    Parameters
+    ----------
+    verbose : [str, int], default is 'info' or 20
+        Set the verbose messages using string or integer values.
+        * [0, 60, None, 'silent', 'off', 'no']: No message.
+        * [10, 'debug']: Messages from debug level and higher.
+        * [20, 'info']: Messages from info level and higher.
+        * [30, 'warning']: Messages from warning level and higher.
+        * [50, 'critical']: Messages from critical level and higher.
+
+    Returns
+    -------
+    None.
+
+    > # Set the logger to warning
+    > set_logger(verbose='warning')
+    > # Test with different messages
+    > logger.debug("Hello debug")
+    > logger.info("Hello info")
+    > logger.warning("Hello warning")
+    > logger.critical("Hello critical")
+
+    """
+    # Convert verbose to new
+    verbose = convert_verbose_to_new(verbose)
+    # Set 0 and None as no messages.
+    if (verbose==0) or (verbose is None):
+        verbose=60
+    # Convert str to levels
+    if isinstance(verbose, str):
+        levels = {'silent': 60,
+                  'off': 60,
+                  'no': 60,
+                  'debug': 10,
+                  'info': 20,
+                  'warning': 30,
+                  'error': 50,
+                  'critical': 50}
+        verbose = levels[verbose]
+
+    # Show examples
+    logger.setLevel(verbose)
+
+
+def disable_tqdm():
+    """Set the logger for verbosity messages."""
+    return (True if (logger.getEffectiveLevel()>=30) else False)
+
+
+def check_logger(verbose: [str, int] = 'info'):
+    """Check the logger."""
+    set_logger(verbose)
+    logger.debug('DEBUG')
+    logger.info('INFO')
+    logger.warning('WARNING')
+    logger.critical('CRITICAL')
