@@ -80,10 +80,6 @@ On the [documentation pages](https://erdogant.github.io/thompson/) you can find 
 ### References
 * https://en.wikipedia.org/wiki/Multi-armed_bandit
    
-### Maintainers
-* Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
 
-### Contribute
-* All kinds of contributions are welcome!
-* If you wish to buy me a <a href="https://www.buymeacoffee.com/erdogant">Coffee</a> for this work, it is very appreciated :)
+<a href="https://www.buymeacoffee.com/erdogant"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=erdogant&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
 
