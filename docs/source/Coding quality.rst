@@ -1,79 +1,152 @@
-Coding quality
-###############
+Coding Quality
+################
 
-I value software quality. Higher quality software has fewer defects, better security, and better performance, which leads to happier users who can work more effectively.
-Code reviews are an effective method for improving software quality. McConnell (2004) suggests that unit testing finds approximately 25% of defects, function testing 35%, integration testing 45%, and code review 55-60%. 
-While this means that none of these methods are good enough on their own and that they should be combined, clearly code review is an essential tool here.
+This page describes the coding quality standards and practices used in the thompson package.
 
-This library is therefore developed with several techniques, such as coding styling, low complexity, docstrings, reviews, and unit tests.
-Such conventions are helpfull to improve the quality, make the code cleaner and more understandable but alos to trace future bugs, and spot syntax errors.
+Quality Assurance
+==================
 
+We value software quality as it leads to:
+- Fewer defects and bugs
+- Better security
+- Improved performance
+- Happier users
+- More effective development
 
-library
-**************
+According to McConnell (2004), different testing methods find different percentages of defects:
+- Unit testing: ~25% of defects
+- Function testing: ~35% of defects
+- Integration testing: ~45% of defects
+- Code review: ~55-60% of defects
 
-The file structure of the generated package looks like:
+This demonstrates that a combination of these methods is essential for high-quality software development.
 
+Development Practices
+=======================
+
+The thompson package is developed using several quality assurance techniques:
+
+1. **Code Style**
+   - PEP-8 compliance
+   - Consistent formatting
+   - Clear naming conventions
+   - Comprehensive docstrings
+
+2. **Code Complexity**
+   - Low technical debt
+   - Modular design
+   - Clear function boundaries
+   - Maintainable structure
+
+3. **Documentation**
+   - Detailed docstrings
+   - API documentation
+   - Usage examples
+   - Tutorials and guides
+
+4. **Testing**
+   - Unit tests
+   - Integration tests
+   - Code coverage
+   - Continuous integration
+
+5. **Code Review**
+   - Peer review process
+   - Automated checks
+   - Style enforcement
+   - Quality metrics
+
+Project Structure
+===================
+
+The package follows a standard Python project structure:
 
 .. code-block:: bash
 
-    path/to/thompson/
-    ├── .editorconfig
-    ├── .gitignore
-    ├── .pre-commit-config.yml
-    ├── .prospector.yml
-    ├── CHANGELOG.rst
-    ├── docs
-    │   ├── conf.py
-    │   ├── index.rst
-    │   └── ...
-    ├── LICENSE
-    ├── MANIFEST.in
-    ├── NOTICE
-    ├── thompson
-    │   ├── __init__.py
-    │   ├── __version__.py
-    │   └── thompson.py
-    ├── README.md
-    ├── requirements.txt
-    ├── setup.cfg
-    ├── setup.py
-    └── tests
-        ├── __init__.py
-        └── test_thompson.py
+    thompson/
+    ├── .editorconfig          # Editor configuration
+    ├── .gitignore            # Git ignore rules
+    ├── .pre-commit-config.yml # Pre-commit hooks
+    ├── .prospector.yml       # Code quality checks
+    ├── CHANGELOG.rst         # Version history
+    ├── docs/                 # Documentation
+    │   ├── conf.py          # Sphinx configuration
+    │   ├── index.rst        # Main documentation
+    │   └── ...              # Other docs
+    ├── LICENSE              # License file
+    ├── MANIFEST.in          # Package files
+    ├── NOTICE              # Legal notices
+    ├── thompson/           # Source code
+    │   ├── __init__.py    # Package initialization
+    │   ├── __version__.py # Version information
+    │   └── thompson.py    # Main implementation
+    ├── README.md          # Project overview
+    ├── requirements.txt   # Dependencies
+    ├── setup.cfg         # Package configuration
+    ├── setup.py          # Installation script
+    └── tests/            # Test suite
+        ├── __init__.py  # Test initialization
+        └── test_thompson.py # Unit tests
 
+Code Style
+==========
 
-Style
-********
+The package follows PEP-8 standards for Python code style:
+- Maximum line length: 79 characters
+- Indentation: 4 spaces
+- Naming conventions
 
-This library is compliant with the PEP-8 standards.
-PEP stands for Python Enhancement Proposal and sets a baseline for the readability of Python code.
-Each public function contains a docstring that is based on numpy standards.
-    
+Each public function includes a comprehensive docstring following numpy standards:
+- Description
+- Parameters
+- Returns
+- Examples
+- Notes
 
-Complexity
-****************
+Complexity Management
+======================
 
-This library has been developed by using measures that help decreasing technical debt.
-Developing software with low(er) technical dept may take extra development time, but has many advantages:
+We maintain low technical debt through:
+- Modular code organization
+- Clear function responsibilities
+- Comprehensive documentation
+- Regular code reviews
+- Automated quality checks
 
-* Higher quality code
-* easier maintanable
-* Less prone to bugs and errors
-* Higher security
+Benefits of this approach:
+- Higher code quality
+- Easier maintenance
+- Fewer bugs
+- Better security
+- Faster development
 
+Unit Testing
+=============
 
-Unit tests
-****************
+The package includes comprehensive unit tests that verify:
+- Input validation
+- Output correctness
+- Parameter handling
+- Edge cases
+- Performance characteristics
 
+Tests are implemented using Python's unittest framework and cover:
+- Thompson Sampling algorithm
+- UCB algorithm
+- Randomized sampling
+- Plotting functionality
+- Data loading and processing
 
-The use of unit tests is essential to garantee a consistent output of developed functions.
-The following tests are secured using :func:`tests.test_thompson`:
+Continuous Integration
+=======================
 
-* The input are checked.
-* The output values are checked and whether they are encoded properly.
-* The check of whether parameters are handled correctly.
+The package uses continuous integration to ensure quality:
+- Automated testing
+- Code coverage reporting
+- Style checking
+- Documentation building
+- Dependency management
 
-
+This helps maintain consistent quality across all development.
 
 .. include:: add_bottom.add
