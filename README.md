@@ -11,9 +11,23 @@
 <!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 * ```Thompson``` is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
-* In probability theory, the multi-armed bandit problem is a problem in which a fixed limited set of resources must be allocated between competing (alternative) choices in a way that maximizes their expected gain, when each choice's properties are only partially known at the time of allocation, and may become better understood as time passes or by allocating resources to the choice. This is a classic reinforcement learning problem that exemplifies the exploration-exploitation tradeoff dilemma <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">wikipedia</a>. 
-* In the problem, each machine provides a random reward from a probability distribution specific to that machine. The objective of the gambler is to maximize the sum of rewards earned through a sequence of lever pulls. The crucial tradeoff the gambler faces at each trial is between "exploitation" of the machine that has the highest expected payoff and "exploration" to get more information about the expected payoffs of the other machines. The trade-off between exploration and exploitation is also faced in machine learning. In practice, multi-armed bandits have been used to model problems such as managing research projects in a large organization like a science foundation or a pharmaceutical company <a href="https://en.wikipedia.org/wiki/Multi-armed_bandit">wikipedia</a>.
+The thompson package implements three algorithms for solving the multi-armed bandit problem:
 
+1. Thompson Sampling: A Bayesian approach that maintains probability distributions
+   over the expected rewards of each arm and samples from these distributions to
+   select the next arm to pull.
+
+2. Upper Confidence Bound (UCB): A deterministic algorithm that selects arms based
+   on their estimated rewards and the uncertainty in those estimates.
+
+3. Randomized Sampling: A baseline method that randomly selects arms without
+   considering their past performance.
+
+The multi-armed bandit problem is a classic reinforcement learning problem that
+exemplifies the exploration-exploitation tradeoff dilemma. In this problem, a
+fixed limited set of resources must be allocated between competing choices in a
+way that maximizes expected gain, when each choice's properties are only partially
+known at the time of allocation.
 # 
 **⭐️ Star this repo if you like it ⭐️**
 #
