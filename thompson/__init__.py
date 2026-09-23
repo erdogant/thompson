@@ -6,12 +6,11 @@ from thompson.thompson import (
 	UCB_random,
 	plot,
     wget,
-    check_logger,
 )
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '1.1.0'
+__version__ = '1.2.0'
 
 # Setup root logger
 _logger = logging.getLogger('thompson')
@@ -48,11 +47,12 @@ known at the time of allocation.
 
 Installation
 -----------
+
 ```bash
 pip install thompson
 ```
 
-Basic Usage
+Example
 ----------
 >>> import thompson as th
 >>> # Load example data
