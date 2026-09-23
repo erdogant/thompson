@@ -2,6 +2,8 @@ import unittest
 import numpy as np
 import pandas as pd
 import thompson as th
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend for tests
 
 class TestThompson(unittest.TestCase):
     """Test suite for the thompson package.
