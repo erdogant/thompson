@@ -5,10 +5,8 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/thompson/blob/master/LICENSE)
 [![Downloads](https://pepy.tech/badge/thompson/month)](https://pepy.tech/project/thompson/month)
 [![Downloads](https://pepy.tech/badge/thompson)](https://pepy.tech/project/thompson)
-[![DOI](https://zenodo.org/badge/231458137.svg)](https://zenodo.org/badge/latestdoi/231458137)
+[![DOI](https://img.shields.io/badge/DOI-zenodo-black)](https://zenodo.org/badge/latestdoi/231458137)
 [![Sphinx](https://img.shields.io/badge/Sphinx-Docs-Green)](https://erdogant.github.io/thompson/)
-<!---[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)-->
-<!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 * ```Thompson``` is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
 The thompson package implements three algorithms for solving the multi-armed bandit problem:
