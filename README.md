@@ -73,7 +73,7 @@ On the [documentation pages](https://erdogant.github.io/thompson/) you can find 
   </a>
 </p>
 
-## Agentic Skill: Developing with Streamlit
+## Developing with Agentic Skills
 
 The bundled `developing-with-streamlit` skill helps you integrate AI agents directly into your Streamlit applications for automated development, debugging, and documentation generation.
 
@@ -85,66 +85,11 @@ The skill ships bundled inside the `thompson` package. It is automatically avail
 pip install thompson
 ```
 
-No additional installation steps are required — the skill references are included in every release.
-
-### Usage
-
-Run the discovery script with your project directory:
+In you working directory install the skill. No additional installation steps are required — the skill references are included in every release.
 
 ```bash
-python <SKILL_DIR>/scripts/discover.py --project-dir <USER_PROJECT_DIR>
+thompson install skill
 ```
-
-Where:
-- `<SKILL_DIR>` is the directory containing the bundled `SKILL.md` (auto-resolved by the script)
-- `<USER_PROJECT_DIR>` is the absolute path to your project
-
-The script outputs either:
-
-- **A path on stdout** — the bundled `SKILL.md`. Read it; it points into a `references/` folder with detailed docs on dashboards, themes, layouts, session state, custom components, etc.
-- **An `ERROR:` block on stderr** (non-zero exit). Follow the printed instructions and re-run.
-
-This skill is ideal for:
-
-- Automating Streamlit app generation from natural-language prompts
-- Debugging existing apps with AI-assisted diagnostics
-- Generating reference documentation for complex dashboards
-</parameter>  ] } } ], {
-
-# 
-
-* [Example: Compute multi-armed bandit using Thompson](https://erdogant.github.io/thompson/pages/html/Examples.html#)
-
-<p align="left">
-  <a href="https://erdogant.github.io/thompson/pages/html/Examples.html#">
-  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_thompson.png" width="900" />
-  </a>
-</p>
-
-
-# 
-
-
-* [Example: Compute multi-armed bandit using UCB-Upper confidence Bound](https://erdogant.github.io/thompson/pages/html/Examples.html#ucb-upper-confidence-bound)
-
-<p align="left">
-  <a href="https://erdogant.github.io/thompson/pages/html/Examples.html#ucb-upper-confidence-bound">
-  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_ucb.png" width="900" />
-  </a>
-</p>
-
-
-# 
-
-
-* [Example: Compute multi-armed bandit using randomized data](https://erdogant.github.io/thompson/pages/html/Examples.html#randomized-data)
-
-<p align="left">
-  <a href="https://erdogant.github.io/thompson/pages/html/Examples.html#randomized-data">
-  <img src="https://github.com/erdogant/thompson/blob/master/docs/figs/fig_ucb_random.png" width="900" />
-  </a>
-</p>
-
 
 <hr>
 
