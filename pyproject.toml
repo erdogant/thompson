@@ -13,10 +13,18 @@ license = { file = "LICENSE" }
 keywords = ["Python", "Thompson", "multi-armed bandit", "UCB-Upper confidence Bound", "randomized sampling"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Operating System :: Unix",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = ['matplotlib','numpy','pandas', 'requests']
+
+[project.scripts]
+thompson = "thompson.install_skills:main"
 
 [project.urls]
 Homepage = "https://erdogant.github.io/thompson"

@@ -22,6 +22,60 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+#%% Plot style helper
+def _apply_plot_style():
+    """Apply a clean, modern style for all bandit plots."""
+    plt.style.use('seaborn-v0_8-whitegrid')
+    plt.rcParams.update({
+        'font.size': 11,
+        'axes.titlesize': 14,
+        'axes.labelsize': 12,
+        'xtick.labelsize': 10,
+        'ytick.labelsize': 10,
+        'legend.fontsize': 10,
+        'figure.titlesize': 16,
+        'axes.spines.top': False,
+        'axes.spines.right': False,
+        'axes.edgecolor': '#333333',
+        'grid.alpha': 0.4,
+        'grid.linestyle': '--',
+    })
+
+
+# Shared qualitative palette so every arm keeps the same color across all plots
+_ARM_PALETTE = [
+    '#4C72B0',  # blue
+    '#DD8452',  # orange
+    '#55A868',  # green
+    '#C44E52',  # red
+    '#8172B3',  # purple
+    '#937860',  # brown
+    '#DA8BC3',  # pink
+    '#8C8C8C',  # gray
+    '#CCB974',  # yellow
+    '#64B5CD',  # cyan
+]
+
+
+def _arm_colors(n_arms, indices=None):
+    """Return colors for arms using a fixed shared palette.
+
+    Parameters
+    ----------
+    n_arms : int
+        Total number of arms.
+    indices : array-like or None
+        Specific arm indices to color. If None, colors for 0..n_arms-1 are returned.
+
+    Returns
+    -------
+    list of RGBA or hex colors
+    """
+    palette = _ARM_PALETTE
+    if indices is None:
+        return [palette[i % len(palette)] for i in range(n_arms)]
+    return [palette[int(i) % len(palette)] for i in indices]
+
 #%% Plot
 def plot(out, width=15, height=10, verbose='info'):
     """Plot the results of the multi-armed bandit algorithm.
@@ -70,7 +124,7 @@ def plot(out, width=15, height=10, verbose='info'):
     if out['methodtype']=='thompson':
         makefig_thompson(out, width=width, height=height)
     elif out['methodtype']=='UCB':
-        makefig_UCB(out, width=width, height=width)
+        makefig_UCB(out, width=width, height=height)
     elif out['methodtype']=='UCB_random':
         makefig_UCB_random(out, width=width, height=height)
 
@@ -303,112 +357,156 @@ def UCB(df, verbose='info'):
 
     return(out)
 
-#%% Make figure
-def makefig_thompson(out, width=15, height=10):
+#%% Make figure – Thompson
+def makefig_thompson(out, width=15, height=10, order='vertical'):
+    """Create attractive visualizations for Thompson sampling results."""
+    _apply_plot_style()
+
     columns = out['columns']
-    cols_selected = out['cols_selected']
-    numbers_of_rewards_1 = out['cols_rewards_1']
-    logreward = list(map(lambda x: math.log(x+1), numbers_of_rewards_1))
-    # lognum = list(map(lambda x: math.log(x), num_selections))
-    
-    # Visualising the results - Histogram
-    getcounts=np.unique(cols_selected, return_counts=True)
-    idx=np.arange(0,len(getcounts[1]))
+    cols_selected = np.asarray(out['cols_selected'])
+    numbers_of_rewards_1 = np.asarray(out['cols_rewards_1'])
+    logreward = np.log1p(numbers_of_rewards_1)
 
-    # Make figure
-    [fig, (ax1,ax2)]=plt.subplots(1, 2, figsize=(width*2,height))
-    barwidth = 0.7
+    getcounts = np.unique(cols_selected, return_counts=True)
+    idx = np.arange(len(getcounts[1]))
     ind = np.arange(len(columns))
-    
-    ax1.bar(ind, logreward, barwidth)    
-    ax1.set_xlabel('Features')
-    ax1.set_ylabel('Log(reward)')
-    ax1.set_title('Thompson')
-    ax1.set_xticks(ind)   
-    ax1.set_xticklabels(columns)
-    ax1.grid(True)
 
-    ax2.plot(cols_selected,'.')
-    ax2.set_title('The selected sample over each round.')
-    ax2.set_xlabel('Rounds')
-    ax2.set_ylabel('Selected sample')
-    ax2.grid(True)
-    ax2.axes.set_yticks(idx)
-    ax2.axes.set_yticklabels(columns[getcounts[0]])
-    
-    plt.show()
+    # Consistent arm colors (same palette used by all plot functions)
+    bar_colors = _arm_colors(len(columns))
+    point_colors = _arm_colors(len(columns), cols_selected)
 
-#%% Figure Thompson
-def makefig_UCB(out, width=15, height=10):
-    columns=out['columns']
-    num_selections=out['num_selections']
-    sum_rewards=out['sum_rewards']
-    cols_selected = out['cols_selected']
+    if order == 'horizontal':
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(width * 1.6, height))
+    else:
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(width, height * 1.3))
 
-    lognum = list(map(lambda x: math.log(x), num_selections))
-    logreward = list(map(lambda x: math.log(x), sum_rewards))
-
-    # Visualising the results - Histogram
-    getcounts=np.unique(cols_selected, return_counts=True)
-    idx=np.arange(0,len(getcounts[1]))
-
-    ind = np.arange(len(columns))
-    barwidth = 0.35
-
-    # fig, ax = plt.subplots(figsize=(width*2,height))
-    [fig, (ax1,ax2)]=plt.subplots(1, 2, figsize=(width*2,height))
-    rects1 = ax1.bar(ind - barwidth/2, lognum, barwidth)
-    rects2 = ax1.bar(ind + barwidth/2, logreward , barwidth)    
-    ax1.set_xlabel('Features')
-    ax1.set_ylabel('Log(reward)')
-    ax1.set_title('UCB')
+    # --- Bar plot of log-rewards ---
+    bars = ax1.bar(ind, logreward, width=0.7, color=bar_colors, edgecolor='white', linewidth=0.8, alpha=0.9, zorder=3)
+    ax1.set_xlabel('Arms (Features)', fontweight='medium')
+    ax1.set_ylabel('Log(1 + Reward)', fontweight='medium')
     ax1.set_xticks(ind)
-    ax1.set_xticklabels(columns[ind])
-    ax1.legend((rects1[0], rects2[0]), ('Number of times sampled', 'Reward'))
-    ax1.grid(True)
+    ax1.set_xticklabels(columns, rotation=45 if len(columns) > 8 else 0, ha='right' if len(columns) > 8 else 'center')
+    ax1.set_ylim(bottom=0)
+    # Subtle value labels on tall bars
+    for bar, val in zip(bars, logreward):
+        if val > 0.05 * logreward.max():
+            ax1.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.02 * logreward.max(), f'{val:.1f}', ha='center', va='bottom', fontsize=8, color='#333333')
 
-    ax2.plot(cols_selected,'.')
-    ax2.set_title('The selected sample over each round.')
-    ax2.set_xlabel('Rounds')
-    ax2.set_ylabel('Selected sample')
-    ax2.grid(True)
-    ax2.axes.set_yticks(idx)
-    ax2.axes.set_yticklabels(columns[getcounts[0]])
-    
+    # --- Selection trajectory ---
+    ax2.scatter(np.arange(len(cols_selected)), cols_selected, c=point_colors, s=30, alpha=0.55, edgecolors='none', zorder=3)
+    ax2.set_xlabel('Round', fontweight='medium')
+    ax2.set_ylabel('Selected Arm', fontweight='medium')
+    ax2.set_yticks(idx)
+    ax2.set_yticklabels(columns[getcounts[0]])
+    ax2.set_xlim(-0.5, len(cols_selected) - 0.5)
+
+    fig.suptitle(f'Thompson Sampling  |  Total Reward = {out["total_reward"]}', fontsize=15, fontweight='bold', y=1.02)
+    fig.tight_layout()
     plt.show()
 
-#%% Make figure
-def makefig_UCB_random(out, width=15, height=10):
-    columns=out['columns']
-    cols_selected=out['cols_selected']
-    
-    # Visualising the results - Histogram
-#    idx=np.arange(0,df.shape[1])
-    colwidth = 0.35       # the width of the bars: can also be len(x) sequence
-    getcounts=np.unique(cols_selected, return_counts=True)
-    idx=np.arange(0,len(getcounts[1]))
+#%% Figure – UCB
+def makefig_UCB(out, width=15, height=10, order='vertical'):
+    """Create attractive visualizations for Upper Confidence Bound results."""
+    _apply_plot_style()
 
-    [fig, (ax1,ax2)]=plt.subplots(1, 2, figsize=(width*2,height))
-    # plt.title('UCB randomized results')
-    logger.debug(getcounts)
-    
-    ax1.set_title('Histogram of Sample selections')
-    ax1.bar(idx,getcounts[1],colwidth)
-    ax1.set_xlabel('Samples')
-    ax1.set_ylabel('Number of times each sample was selected')
-    ax1.set_title('Randomized results')
-    ax1.grid(True)
-    ax1.axes.set_xticks(idx)
-    ax1.axes.set_xticklabels(columns[getcounts[0]])
-    
-    ax2.plot(cols_selected,'.')
-    ax2.set_title('The selected sample over each round.')
-    ax2.set_xlabel('Rounds')
-    ax2.set_ylabel('Selected sample')
-    ax2.grid(True)
-    ax2.axes.set_yticks(idx)
-    ax2.axes.set_yticklabels(columns[getcounts[0]])
-    
+    columns = out['columns']
+    num_selections = np.asarray(out['num_selections'], dtype=float)
+    sum_rewards = np.asarray(out['sum_rewards'], dtype=float)
+    cols_selected = np.asarray(out['cols_selected'])
+
+    # Avoid log(0)
+    lognum = np.log1p(num_selections)
+    logreward = np.log1p(sum_rewards)
+
+    getcounts = np.unique(cols_selected, return_counts=True)
+    idx = np.arange(len(getcounts[1]))
+    ind = np.arange(len(columns))
+    barwidth = 0.38
+
+    # Consistent arm colors (same palette used by all plot functions)
+    bar_colors = _arm_colors(len(columns))
+    point_colors = _arm_colors(len(columns), cols_selected)
+
+    if order == 'horizontal':
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(width * 1.6, height))
+    else:
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(width, height * 1.3))
+
+    # --- Grouped bars (same arm color for both metrics, different hatch/alpha) ---
+    rects1 = ax1.bar(ind - barwidth / 2, lognum, barwidth,
+                     color=bar_colors, edgecolor='white', linewidth=0.7,
+                     label='Times sampled (log)', alpha=0.85, zorder=3)
+    rects2 = ax1.bar(ind + barwidth / 2, logreward, barwidth,
+                     color=bar_colors, edgecolor='white', linewidth=0.7,
+                     label='Reward (log)', alpha=0.55, hatch='///', zorder=3)
+
+    ax1.set_xlabel('Arms (Features)', fontweight='medium')
+    ax1.set_ylabel('Log(1 + Value)', fontweight='medium')
+    ax1.set_xticks(ind)
+    ax1.set_xticklabels(columns, rotation=45 if len(columns) > 8 else 0,
+                        ha='right' if len(columns) > 8 else 'center')
+    ax1.legend(frameon=True, fancybox=True, shadow=False, loc='upper right')
+    ax1.set_ylim(bottom=0)
+
+    # --- Selection trajectory ---
+    ax2.scatter(np.arange(len(cols_selected)), cols_selected, c=point_colors, s=30, alpha=0.55, edgecolors='none', zorder=3)
+    ax2.set_xlabel('Round', fontweight='medium')
+    ax2.set_ylabel('Selected Arm', fontweight='medium')
+    ax2.set_yticks(idx)
+    ax2.set_yticklabels(columns[getcounts[0]])
+    ax2.set_xlim(-0.5, len(cols_selected) - 0.5)
+
+    fig.suptitle(f'Upper Confidence Bound (UCB)  |  Total Reward = {out["total_reward"]}',
+                 fontsize=15, fontweight='bold', y=1.02)
+    fig.tight_layout()
+    plt.show()
+
+#%% Make figure – Randomized
+def makefig_UCB_random(out, width=15, height=10, order='vertical'):
+    """Create attractive visualizations for randomized baseline results."""
+    _apply_plot_style()
+
+    columns = out['columns']
+    cols_selected = np.asarray(out['cols_selected'])
+
+    getcounts = np.unique(cols_selected, return_counts=True)
+    idx = np.arange(len(getcounts[1]))
+    counts = getcounts[1]
+    arm_indices = getcounts[0]  # the actual arm indices that appear
+
+    # Consistent arm colors (same palette used by all plot functions)
+    bar_colors = _arm_colors(len(columns), arm_indices)
+    point_colors = _arm_colors(len(columns), cols_selected)
+
+    if order == 'horizontal':
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(width * 1.6, height))
+    else:
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(width, height * 1.3))
+
+    # --- Histogram of selections ---
+    bars = ax1.bar(idx, counts, width=0.65, color=bar_colors, edgecolor='white',
+                   linewidth=0.8, alpha=0.9, zorder=3)
+    ax1.set_xlabel('Arms (Features)', fontweight='medium')
+    ax1.set_ylabel('Number of times selected', fontweight='medium')
+    ax1.set_xticks(idx)
+    ax1.set_xticklabels(columns[getcounts[0]], rotation=45 if len(idx) > 8 else 0,
+                        ha='right' if len(idx) > 8 else 'center')
+    ax1.set_ylim(bottom=0)
+    for bar, val in zip(bars, counts):
+        ax1.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.01 * counts.max(),
+                 str(val), ha='center', va='bottom', fontsize=8, color='#333333')
+
+    # --- Selection trajectory ---
+    ax2.scatter(np.arange(len(cols_selected)), cols_selected, c=point_colors, s=30, alpha=0.55, edgecolors='none', zorder=3)
+    ax2.set_xlabel('Round', fontweight='medium')
+    ax2.set_ylabel('Selected Arm', fontweight='medium')
+    ax2.set_yticks(idx)
+    ax2.set_yticklabels(columns[getcounts[0]])
+    ax2.set_xlim(-0.5, len(cols_selected) - 0.5)
+
+    fig.suptitle(f'Randomized Baseline  |  Total Reward = {out["total_reward"]}',
+                 fontsize=15, fontweight='bold', y=1.02)
+    fig.tight_layout()
     plt.show()
 
 
