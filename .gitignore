@@ -5,10 +5,20 @@ __pycache__/
 
 # C extensions
 *.so
-/thompson/data/*
+
+# ignore dirs
+libraries/
 .pypirc
 
+# ignore skill-related files
+CLAUDE.md
+MEMORY.md
+.claude/
+.opencode/
+.agents/
+
 # Distribution / packaging
+.pylint.*
 .Python
 build/
 develop-eggs/
@@ -129,3 +139,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.pylint.*
