@@ -56,6 +56,26 @@ To install thompson in development mode:
 
     pip install -e .
 
+
+Install SKILLS
+=========================
+
+The simplest way to install skills in your working directory is:
+
+.. code-block:: console
+
+    thompson install skill
+
+Change the harness with the -harness argument:
+Default: claude but opencode agents or any other name is allowed.
+
+.. code-block:: console
+
+thompson install skill --harness opencode
+thompson install skill --harness opencode --global
+thompson install skill --global
+
+
 Uninstalling
 =============
 
