@@ -2,14 +2,37 @@
 
 [![Python](https://img.shields.io/pypi/pyversions/thompson)](https://img.shields.io/pypi/pyversions/thompson)
 [![PyPI Version](https://img.shields.io/pypi/v/thompson)](https://pypi.org/project/thompson/)
+![GitHub Repo stars](https://img.shields.io/github/stars/erdogant/thompson)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/thompson/blob/master/LICENSE)
-[![Downloads](https://pepy.tech/badge/thompson/month)](https://pepy.tech/project/thompson/month)
+[![Forks](https://img.shields.io/github/forks/erdogant/thompson.svg)](https://github.com/erdogant/thompson/network)
+[![Open Issues](https://img.shields.io/github/issues/erdogant/thompson?style=flat-square)](https://github.com/erdogant/thompson/issues)
+[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Downloads](https://pepy.tech/badge/thompson/month)](https://pepy.tech/project/thompson/)
 [![Downloads](https://pepy.tech/badge/thompson)](https://pepy.tech/project/thompson)
-[![DOI](https://img.shields.io/badge/DOI-zenodo-black)](https://zenodo.org/badge/latestdoi/231458137)
-[![Sphinx](https://img.shields.io/badge/Sphinx-Docs-Green)](https://erdogant.github.io/thompson/)
+[![Docs](https://img.shields.io/badge/Sphinx-Docs-Green)](https://erdogant.github.io/thompson/)
+[![Medium](https://img.shields.io/badge/Medium-Blog-black)](https://erdogant.github.io/thompson/pages/html/Documentation.html#medium-blog)
+![GitHub repo size](https://img.shields.io/github/repo-size/erdogant/thompson)
+[![Donate](https://img.shields.io/badge/Support%20this%20project-grey.svg?logo=github%20sponsors)](https://erdogant.github.io/thompson/pages/html/Documentation.html#)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://erdogant.github.io/thompson/pages/html/Documentation.html#colab-notebook)
 
-* ```Thompson``` is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
-The thompson package implements three algorithms for solving the multi-armed bandit problem:
+### 
+
+<div>
+
+``Thompson`` is Python package to evaluate the multi-armed bandit problem. In addition to thompson, Upper Confidence Bound (UCB) algorithm, and randomized results are also implemented.
+The thompson package implements three algorithms for solving the multi-armed bandit problem. Navigate to [API documentations](https://erdogant.github.io/thompson/) for more detailed information. **⭐️ Star it if you like it ⭐️**
+</div>
+
+
+---
+
+### Resources and Links
+- **Blog Posts:** [Medium](https://erdogant.github.io/thompson/pages/html/Documentation.html#medium-blog-posts)
+- **Documentation:** [Website](https://erdogant.github.io/thompson)
+- **Bug Reports and Feature Requests:** [GitHub Issues](https://github.com/erdogant/thompson/issues)
+
+---
+
 
 1. Thompson Sampling: A Bayesian approach that maintains probability distributions
    over the expected rewards of each arm and samples from these distributions to
