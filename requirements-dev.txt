@@ -1,0 +1,12 @@
+#glob
+numpy
+rst2pdf
+pytest
+irelease
+
+tabulate
+sphinx_rtd_theme
+sphinx
+sphinxcontrib-fulltoc
+#git+https://github.com/SuperKogito/sphinxcontrib-pdfembed.git
+#nbconvert # jupyter nbconvert --to html notebook.ipynb
